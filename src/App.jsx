@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import avatarGirl from "./assets/avatars/avatar-girl.svg";
 import avatarMan from "./assets/avatars/avatar-man.svg";
 import avatarPerson1 from "./assets/avatars/avatar-person-1.svg";
@@ -131,6 +131,41 @@ export default function App() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [celebrate, setCelebrate] = useState(false);
+  const [metrics, setMetrics] = useState(null);
+
+  // Basic visitor analytics – page view
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const path = window.location.pathname + window.location.search;
+    fetch("/api/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "pageview", path }),
+    }).catch(() => {});
+  }, []);
+
+  // Load dashboard metrics when ?admin=1 is present
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("admin") !== "1") return;
+
+    (async () => {
+      try {
+        const res = await fetch("/api/metrics");
+        const data = await res.json();
+        if (res.ok && data?.ok) {
+          setMetrics({
+            pageviews: data.pageviews || 0,
+            waitlistJoins: data.waitlistJoins || 0,
+            uniqueEmails: data.uniqueEmails || 0,
+          });
+        }
+      } catch {
+        // ignore for now – dashboard is best-effort
+      }
+    })();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -152,6 +187,20 @@ export default function App() {
 
       setSubmitted(true);
       setCelebrate(true);
+
+      // Track successful waitlist join (analytics)
+      try {
+        if (typeof window !== "undefined") {
+          const path = window.location.pathname + window.location.search;
+          fetch("/api/track", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ type: "waitlist_join", path }),
+          }).catch(() => {});
+        }
+      } catch {
+        // ignore
+      }
     } catch (err) {
       setError(err?.message || "Failed to join waitlist.");
     } finally {
@@ -505,6 +554,51 @@ export default function App() {
             </p>
           </div>
         </section>
+
+        {/* Lightweight analytics dashboard (hidden unless ?admin=1) */}
+        {metrics && (
+          <section className="mt-10">
+            <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 sm:p-6 text-sm text-white/80">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-sm font-semibold tracking-[0.14em] uppercase text-white/70">
+                    Visitor analytics
+                  </h2>
+                  <p className="mt-1 text-xs text-white/60">
+                    Visible only when loaded with <code>?admin=1</code>.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                <div className="rounded-2xl border border-white/10 bg-slate-950/35 p-4">
+                  <p className="text-xs uppercase tracking-[0.16em] text-white/60">
+                    Page views
+                  </p>
+                  <p className="mt-2 text-2xl font-semibold text-white">
+                    {metrics.pageviews}
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-slate-950/35 p-4">
+                  <p className="text-xs uppercase tracking-[0.16em] text-white/60">
+                    Waitlist joins (events)
+                  </p>
+                  <p className="mt-2 text-2xl font-semibold text-white">
+                    {metrics.waitlistJoins}
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-slate-950/35 p-4">
+                  <p className="text-xs uppercase tracking-[0.16em] text-white/60">
+                    Unique emails
+                  </p>
+                  <p className="mt-2 text-2xl font-semibold text-white">
+                    {metrics.uniqueEmails}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Footer */}
         <footer className="mt-10 pb-6 text-xs text-white/55">
