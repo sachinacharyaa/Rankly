@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bar1" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#1e3a8a"/>
+      <stop offset="1" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="bar2" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="bar3" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#1f2937"/>
+      <stop offset="1" stop-color="#818cf8"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#020617"/>
+  <!-- 2nd place (left, silver) -->
+  <rect x="18" y="26" width="8" height="22" rx="3" fill="url(#bar1)"/>
+  <text x="22" y="23" text-anchor="middle" font-size="9" fill="#e5e7eb"></text>
+  <!-- 1st place (middle, gold) -->
+  <rect x="28" y="20" width="8" height="28" rx="3" fill="url(#bar2)"/>
+  <text x="32" y="17" text-anchor="middle" font-size="9" fill="#fbbf24"></text>
+  <!-- 3rd place (right, bronze) -->
+  <rect x="38" y="30" width="8" height="18" rx="3" fill="url(#bar3)"/>
+  <text x="42" y="27" text-anchor="middle" font-size="9" fill="#fb923c"></text>
+</svg>
+
