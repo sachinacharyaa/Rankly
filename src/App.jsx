@@ -160,12 +160,15 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen text-white">
-      {/* Background like reference (cream → pink → purple → deep navy) */}
+    <div className="min-h-screen bg-slate-950 text-white">
+      {/* Clean, simple background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(1200px_circle_at_10%_10%,rgba(253,230,138,0.95),transparent_55%),radial-gradient(900px_circle_at_35%_15%,rgba(244,114,182,0.55),transparent_55%),radial-gradient(1100px_circle_at_70%_30%,rgba(99,102,241,0.55),transparent_55%),radial-gradient(900px_circle_at_80%_80%,rgba(15,23,42,1),rgba(2,6,23,1))]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/35" />
-        <div className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.35)_1px,transparent_1px)] [background-size:18px_18px]" />
+        {/* Soft top-to-bottom gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950 to-slate-950" />
+        {/* Subtle central glow behind hero */}
+        <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.35),transparent_60%)] blur-3xl opacity-70" />
+        {/* Gentle bottom glow */}
+        <div className="pointer-events-none absolute bottom-[-120px] left-1/2 h-64 w-[720px] -translate-x-1/2 rounded-[999px] bg-[radial-gradient(circle_at_center,rgba(15,23,42,1),transparent_70%)] opacity-70" />
       </div>
 
       {/* Top nav */}
@@ -226,9 +229,9 @@ export default function App() {
             </h1>
 
             <p className="mt-6 text-base sm:text-lg text-white/80 max-w-xl">
-              We scan your inbox and surface just the{" "}
+              We scan your inbox and surface just{" "}
               <span className="font-semibold text-white">
-                3 threads that actually move work forward.
+                top importants that actually move work forward.
               </span>
             </p>
 
