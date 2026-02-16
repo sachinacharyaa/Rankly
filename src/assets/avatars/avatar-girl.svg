@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fde68a"/>
+      <stop offset="0.45" stop-color="#f472b6"/>
+      <stop offset="1" stop-color="#6366f1"/>
+    </linearGradient>
+    <radialGradient id="shine" cx="35%" cy="25%" r="70%">
+      <stop offset="0" stop-color="rgba(255,255,255,0.75)"/>
+      <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+    </radialGradient>
+  </defs>
+  <circle cx="64" cy="64" r="62" fill="url(#bg)"/>
+  <circle cx="64" cy="64" r="62" fill="url(#shine)"/>
+  <!-- shoulders -->
+  <path d="M24 116c7-20 23-30 40-30s33 10 40 30" fill="rgba(2,6,23,0.35)"/>
+  <!-- hair -->
+  <path d="M38 60c0-18 12-34 26-34s26 16 26 34c0 2 0 4-1 6 7-7 11-16 11-26 0-20-16-36-36-36S28 20 28 40c0 10 4 19 11 26-1-2-1-4-1-6z" fill="rgba(2,6,23,0.55)"/>
+  <!-- face -->
+  <circle cx="64" cy="58" r="20" fill="rgba(255,255,255,0.55)"/>
+  <!-- eyes -->
+  <circle cx="56" cy="58" r="2.5" fill="rgba(2,6,23,0.55)"/>
+  <circle cx="72" cy="58" r="2.5" fill="rgba(2,6,23,0.55)"/>
+  <!-- smile -->
+  <path d="M56 68c3 4 13 4 16 0" stroke="rgba(2,6,23,0.5)" stroke-width="3" stroke-linecap="round" fill="none"/>
+</svg>
+
